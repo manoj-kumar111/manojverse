@@ -1,4 +1,4 @@
-import { ArrowUp, Heart, Code2 } from "lucide-react";
+import { ArrowUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const Footer = () => {
@@ -34,15 +34,8 @@ const Footer = () => {
           {/* Copyright */}
           <div className="flex flex-col sm:flex-row items-center gap-2 text-sm text-muted-foreground">
             <span className="flex items-center gap-1">
-              <Code2 className="w-4 h-4" />
-              Built with
+              Have an idea? Let’s talk.
             </span>
-            <span className="flex items-center gap-1">
-              <Heart className="w-4 h-4 text-red-500 fill-current" />
-              by Manoj Kumar
-            </span>
-            <span className="hidden sm:inline">•</span>
-            <span>© {new Date().getFullYear()} All rights reserved</span>
           </div>
         </div>
       </div>

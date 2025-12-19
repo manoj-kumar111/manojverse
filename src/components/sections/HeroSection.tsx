@@ -1,5 +1,5 @@
 import { TypeAnimation } from "react-type-animation";
-import { ArrowDown, FileText, Rocket, Github, Linkedin, Mail } from "lucide-react";
+import { ArrowDown, FileText, Rocket, Github, Linkedin, Code2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const HeroSection = () => {
@@ -104,7 +104,7 @@ const HeroSection = () => {
           {/* Social links */}
           <div className="flex items-center justify-center gap-4 animate-fade-in animation-delay-400">
             <a
-              href="https://github.com/manojkumar"
+              href="https://github.com/manoj-kumar111"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="GitHub"
@@ -113,7 +113,7 @@ const HeroSection = () => {
               <Github className="w-5 h-5" />
             </a>
             <a
-              href="https://linkedin.com/in/manojkumar"
+              href="https://www.linkedin.com/in/manoj-kumar-bb89572b2/"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn"
@@ -122,11 +122,13 @@ const HeroSection = () => {
               <Linkedin className="w-5 h-5" />
             </a>
             <a
-              href="mailto:manojkumarraajbhar@gmail.com"
-              aria-label="Email"
+              href="https://codolio.com/profile/K_manoj"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Codolio"
               className="p-3 rounded-full border border-border/50 bg-card/50 text-muted-foreground hover:text-primary hover:border-primary/50 hover:shadow-[0_0_20px_hsl(var(--primary)/0.3)] transition-all duration-300 hover:scale-110"
             >
-              <Mail className="w-5 h-5" />
+              <Code2 className="w-5 h-5" />
             </a>
           </div>
         </div>

@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useInView } from "react-intersection-observer";
 import { Send, Github, Linkedin, Mail, MapPin, CheckCircle, Phone } from "lucide-react";
+import emailjs from '@emailjs/browser';
+import { toast } from "sonner";
 import SectionHeading from "@/components/SectionHeading";
 import GlassCard from "@/components/GlassCard";
 import { Button } from "@/components/ui/button";
@@ -9,8 +11,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 
 const socialLinks = [
-  { icon: Github, href: "https://github.com/manojkumar", label: "GitHub", username: "@manojkumar" },
-  { icon: Linkedin, href: "https://linkedin.com/in/manojkumar", label: "LinkedIn", username: "in/manojkumar" },
+  { icon: Github, href: "https://github.com/manoj-kumar111", label: "GitHub", username: "@manoj-kumar111" },
+  { icon: Linkedin, href: "https://www.linkedin.com/in/manoj-kumar-bb89572b2/", label: "LinkedIn", username: "Manoj Kumar" },
   { icon: Mail, href: "mailto:manojkumarraajbhar@gmail.com", label: "Email", username: "manojkumarraajbhar@gmail.com" },
   { icon: Phone, href: "tel:+918360477501", label: "Phone", username: "+91 8360477501" },
 ];
@@ -22,18 +24,40 @@ const ContactSection = () => {
     message: "",
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSending, setIsSending] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitted(true);
-    setTimeout(() => {
-      setIsSubmitted(false);
+    if (!formRef.current) return;
+
+    setIsSending(true);
+
+    try {
+      await emailjs.sendForm(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        formRef.current,
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      );
+      
+      setIsSubmitted(true);
+      toast.success("Message sent successfully!");
       setFormState({ name: "", email: "", message: "" });
-    }, 3000);
+      
+      setTimeout(() => {
+        setIsSubmitted(false);
+      }, 3000);
+    } catch (error) {
+      console.error("Failed to send message:", error);
+      toast.error("Failed to send message. Please try again.");
+    } finally {
+      setIsSending(false);
+    }
   };
 
   return (
@@ -51,11 +75,12 @@ const ContactSection = () => {
               <div className="absolute top-0 right-0 w-40 h-40 bg-primary/10 rounded-full blur-3xl" />
               <div className="absolute bottom-0 left-0 w-32 h-32 bg-secondary/10 rounded-full blur-3xl" />
               
-              <form onSubmit={handleSubmit} className="relative z-10 space-y-6">
+              <form ref={formRef} onSubmit={handleSubmit} className="relative z-10 space-y-6">
                 <div className="space-y-2">
                   <Label htmlFor="name" className="text-foreground">Name</Label>
                   <Input
                     id="name"
+                    name="user_name"
                     placeholder="Your Name"
                     value={formState.name}
                     onChange={(e) => setFormState({ ...formState, name: e.target.value })}
@@ -67,6 +92,7 @@ const ContactSection = () => {
                   <Label htmlFor="email" className="text-foreground">Email</Label>
                   <Input
                     id="email"
+                    name="user_email"
                     type="email"
                     placeholder="your@email.com"
                     value={formState.email}
@@ -79,6 +105,7 @@ const ContactSection = () => {
                   <Label htmlFor="message" className="text-foreground">Message</Label>
                   <Textarea
                     id="message"
+                    name="message"
                     placeholder="Tell me about your project..."
                     rows={5}
                     value={formState.message}
@@ -93,17 +120,17 @@ const ContactSection = () => {
                   variant="hero"
                   size="lg"
                   className="w-full"
-                  disabled={isSubmitted}
+                  disabled={isSubmitted || isSending}
                 >
                   {isSubmitted ? (
                     <>
                       <CheckCircle className="w-5 h-5" />
-                      Message Sent!
+                      <span>Message Sent</span>
                     </>
                   ) : (
                     <>
                       <Send className="w-5 h-5" />
-                      Send Message
+                      <span>{isSending ? "Sending..." : "Send Message"}</span>
                     </>
                   )}
                 </Button>
