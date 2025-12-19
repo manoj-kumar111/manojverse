@@ -56,6 +56,30 @@ To create a production build:
 npm run build
 ```
 
-## 📄 License
+## � Deployment to Vercel
+
+1. **Push your code to GitHub**
+   Make sure your latest changes are committed and pushed to your GitHub repository.
+
+2. **Log in to Vercel**
+   Go to [Vercel](https://vercel.com/) and sign up/log in with your GitHub account.
+
+3. **Import Project**
+   - Click **"Add New..."** > **"Project"**.
+   - Select your portfolio repository from the list and click **"Import"**.
+
+4. **Configure Environment Variables** (Critical for Contact Form)
+   - In the **"Environment Variables"** section, expand the dropdown.
+   - Add the same variables from your local `.env` file:
+     - `VITE_EMAILJS_SERVICE_ID`
+     - `VITE_EMAILJS_TEMPLATE_ID`
+     - `VITE_EMAILJS_PUBLIC_KEY`
+   - Paste the corresponding values for each.
+
+5. **Deploy**
+   - Click **"Deploy"**.
+   - Vercel will build your project. Once finished, you will get a live URL!
+
+## �📄 License
 
 This project is licensed under the MIT License.

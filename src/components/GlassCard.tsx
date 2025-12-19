@@ -1,4 +1,4 @@
-import { type ReactNode, useRef, useState } from "react";
+import { type ReactNode, useRef } from "react";
 import { cn } from "@/lib/utils";
 
 interface GlassCardProps {
@@ -17,8 +17,7 @@ const GlassCard = ({
   tiltEffect = true
 }: GlassCardProps) => {
   const cardRef = useRef<HTMLDivElement>(null);
-  const [transform, setTransform] = useState("");
-  const [glowPosition, setGlowPosition] = useState({ x: 50, y: 50 });
+  const glowRef = useRef<HTMLDivElement>(null);
 
   const glowClasses = {
     cyan: "hover:shadow-[0_0_40px_hsl(185_100%_50%/0.25)]",
@@ -38,13 +37,21 @@ const GlassCard = ({
     const rotateX = (y - centerY) / 20;
     const rotateY = (centerX - x) / 20;
     
-    setTransform(`perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`);
-    setGlowPosition({ x: (x / rect.width) * 100, y: (y / rect.height) * 100 });
+    cardRef.current.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+    const gx = (x / rect.width) * 100;
+    const gy = (y / rect.height) * 100;
+    if (glowRef.current) {
+      glowRef.current.style.background = `radial-gradient(600px circle at ${gx}% ${gy}%, hsl(var(--primary) / 0.1), transparent 40%)`;
+    }
   };
 
   const handleMouseLeave = () => {
-    setTransform("");
-    setGlowPosition({ x: 50, y: 50 });
+    if (cardRef.current) {
+      cardRef.current.style.transform = "";
+    }
+    if (glowRef.current) {
+      glowRef.current.style.background = `radial-gradient(600px circle at 50% 50%, hsl(var(--primary) / 0.08), transparent 40%)`;
+    }
   };
 
   return (
@@ -52,7 +59,7 @@ const GlassCard = ({
       ref={cardRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      style={{ transform, transition: "transform 0.1s ease-out" }}
+      style={{ transition: "transform 0.1s ease-out", willChange: "transform" }}
       className={cn(
         "glass-card p-6 relative overflow-hidden",
         hoverEffect && [
@@ -65,9 +72,10 @@ const GlassCard = ({
     >
       {/* Dynamic glow effect that follows cursor */}
       <div 
+        ref={glowRef}
         className="absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-300 pointer-events-none"
         style={{
-          background: `radial-gradient(600px circle at ${glowPosition.x}% ${glowPosition.y}%, hsl(var(--primary) / 0.1), transparent 40%)`,
+          background: `radial-gradient(600px circle at 50% 50%, hsl(var(--primary) / 0.08), transparent 40%)`,
         }}
       />
       <div className="relative z-10">

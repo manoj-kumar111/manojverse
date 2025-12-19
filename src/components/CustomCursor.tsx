@@ -1,18 +1,39 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const CustomCursor = () => {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isPointer, setIsPointer] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
   const [isClicking, setIsClicking] = useState(false);
+  const dotRef = useRef<HTMLDivElement | null>(null);
+  const ringRef = useRef<HTMLDivElement | null>(null);
+  const targetX = useRef(0);
+  const targetY = useRef(0);
+  const ringX = useRef(0);
+  const ringY = useRef(0);
+  const rafId = useRef<number | null>(null);
 
   useEffect(() => {
     const updatePosition = (e: MouseEvent) => {
-      setPosition({ x: e.clientX, y: e.clientY });
+      targetX.current = e.clientX;
+      targetY.current = e.clientY;
+      if (dotRef.current) {
+        dotRef.current.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0) translate(-50%, -50%)`;
+      }
+      if (rafId.current === null) {
+        const loop = () => {
+          ringX.current += (targetX.current - ringX.current) * 0.2;
+          ringY.current += (targetY.current - ringY.current) * 0.2;
+          if (ringRef.current) {
+            ringRef.current.style.transform = `translate3d(${ringX.current}px, ${ringY.current}px, 0) translate(-50%, -50%)`;
+          }
+          rafId.current = requestAnimationFrame(loop);
+        };
+        rafId.current = requestAnimationFrame(loop);
+      }
     };
 
-    const updateCursorType = () => {
-      const hoveredElement = document.elementFromPoint(position.x, position.y);
+    const updateCursorType = (e: MouseEvent) => {
+      const hoveredElement = e.target as Element | null;
       if (hoveredElement) {
         const computedStyle = window.getComputedStyle(hoveredElement);
         setIsPointer(
@@ -44,8 +65,12 @@ const CustomCursor = () => {
       window.removeEventListener("mouseup", handleMouseUp);
       document.body.removeEventListener("mouseleave", handleMouseLeave);
       document.body.removeEventListener("mouseenter", handleMouseEnter);
+      if (rafId.current !== null) {
+        cancelAnimationFrame(rafId.current);
+        rafId.current = null;
+      }
     };
-  }, [position.x, position.y]);
+  }, []);
 
   if (isHidden) return null;
 
@@ -53,12 +78,8 @@ const CustomCursor = () => {
     <>
       {/* Main cursor dot */}
       <div
+        ref={dotRef}
         className="fixed pointer-events-none z-[9999] mix-blend-difference"
-        style={{
-          left: position.x,
-          top: position.y,
-          transform: "translate(-50%, -50%)",
-        }}
       >
         <div
           className={`rounded-full bg-white transition-all duration-150 ease-out ${
@@ -69,12 +90,10 @@ const CustomCursor = () => {
 
       {/* Cursor ring */}
       <div
+        ref={ringRef}
         className="fixed pointer-events-none z-[9998] mix-blend-difference"
         style={{
-          left: position.x,
-          top: position.y,
-          transform: "translate(-50%, -50%)",
-          transition: "left 0.15s ease-out, top 0.15s ease-out, width 0.2s, height 0.2s, border-color 0.2s",
+          transition: "width 0.2s, height 0.2s, border-color 0.2s",
         }}
       >
         <div
