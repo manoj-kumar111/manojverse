@@ -4,7 +4,7 @@ This is a modern, responsive portfolio website built with React, TypeScript, and
 
 ## 🚀 Live Demo
 
-[Check out the live demo here](https://your-portfolio-url.vercel.app)
+[Check out the live demo here](https://manojverse.vercel.app/)
 
 ## 🛠️ Tech Stack
 
