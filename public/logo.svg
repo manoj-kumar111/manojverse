@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <defs>
+    <linearGradient id="techGradient" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#22D3EE"/>
+      <stop offset="100%" stop-color="#6366F1"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="120" height="120" rx="28" fill="#020617"/>
+
+  <!-- Central Node -->
+  <circle cx="60" cy="60" r="10" fill="url(#techGradient)"/>
+
+  <!-- Connected Nodes -->
+  <circle cx="30" cy="30" r="6" fill="#22D3EE"/>
+  <circle cx="90" cy="30" r="6" fill="#6366F1"/>
+  <circle cx="30" cy="90" r="6" fill="#6366F1"/>
+  <circle cx="90" cy="90" r="6" fill="#22D3EE"/>
+
+  <!-- Connections -->
+  <line x1="60" y1="60" x2="30" y2="30" stroke="url(#techGradient)" stroke-width="3"/>
+  <line x1="60" y1="60" x2="90" y2="30" stroke="url(#techGradient)" stroke-width="3"/>
+  <line x1="60" y1="60" x2="30" y2="90" stroke="url(#techGradient)" stroke-width="3"/>
+  <line x1="60" y1="60" x2="90" y2="90" stroke="url(#techGradient)" stroke-width="3"/>
+</svg>

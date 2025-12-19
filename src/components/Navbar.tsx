@@ -45,13 +45,17 @@ const Navbar = () => {
           {/* Logo */}
           <a
             href="#hero"
-            className="text-2xl font-display font-bold text-gradient hover:scale-105 transition-transform"
+            className="hover:scale-105 transition-transform"
             onClick={(e) => {
               e.preventDefault();
               window.scrollTo({ top: 0, behavior: "smooth" });
             }}
           >
-            MK
+            <img
+              src="/logo.svg"
+              alt="Logo"
+              className="w-8 h-8 md:w-9 md:h-9"
+            />
           </a>
 
           {/* Desktop nav */}
