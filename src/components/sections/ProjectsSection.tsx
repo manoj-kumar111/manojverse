@@ -24,7 +24,7 @@ const projects = [
     image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&auto=format",
     tech: ["MongoDB", "Express.js", "React.js", "Node.js", "JWT"],
     category: "Web",
-    liveUrl: "https://expense-tracker-teal-delta.vercel.app/login",
+    liveUrl: "https://expense-tracker-teal-delta.vercel.app/",
     githubUrl: "https://github.com/manoj-kumar111/Expense-Tracker",
   },
   {
