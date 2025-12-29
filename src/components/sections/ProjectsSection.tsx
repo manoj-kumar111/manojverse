@@ -14,8 +14,8 @@ const projects = [
     image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&auto=format",
     tech: ["React.js", "TypeScript", "Next.js", "MongoDB", "Gemini AI"],
     category: "AI",
-    liveUrl: "#",
-    githubUrl: "#",
+    liveUrl: "https://nexusai-one-ivory.vercel.app/",
+    githubUrl: "https://github.com/manoj-kumar111/ai-search-engine",
   },
   {
     id: 2,
@@ -24,8 +24,8 @@ const projects = [
     image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&auto=format",
     tech: ["MongoDB", "Express.js", "React.js", "Node.js", "JWT"],
     category: "Web",
-    liveUrl: "#",
-    githubUrl: "#",
+    liveUrl: "https://expense-tracker-teal-delta.vercel.app/login",
+    githubUrl: "https://github.com/manoj-kumar111/Expense-Tracker",
   },
   {
     id: 3,
@@ -34,8 +34,8 @@ const projects = [
     image: "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=800&auto=format",
     tech: ["HTML", "CSS", "JavaScript", "React.js"],
     category: "Web",
-    liveUrl: "#",
-    githubUrl: "#",
+    liveUrl: "https://manojverse.vercel.app/",
+    githubUrl: "https://github.com/manoj-kumar111/manojverse",
   },
 ];
 
