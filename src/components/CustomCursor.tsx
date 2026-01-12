@@ -21,8 +21,21 @@ const CustomCursor = () => {
       }
       if (rafId.current === null) {
         const loop = () => {
-          ringX.current += (targetX.current - ringX.current) * 0.2;
-          ringY.current += (targetY.current - ringY.current) * 0.2;
+          const dx = targetX.current - ringX.current;
+          const dy = targetY.current - ringY.current;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+
+          // Stop animation loop if cursor is nearly at target (idle)
+          if (distance < 0.5) {
+            if (rafId.current !== null) {
+              cancelAnimationFrame(rafId.current);
+              rafId.current = null;
+            }
+            return;
+          }
+
+          ringX.current += dx * 0.2;
+          ringY.current += dy * 0.2;
           if (ringRef.current) {
             ringRef.current.style.transform = `translate3d(${ringX.current}px, ${ringY.current}px, 0) translate(-50%, -50%)`;
           }
@@ -80,11 +93,11 @@ const CustomCursor = () => {
       <div
         ref={dotRef}
         className="fixed pointer-events-none z-[9999] mix-blend-difference"
+        style={{ willChange: "transform" }}
       >
         <div
-          className={`rounded-full bg-white transition-all duration-150 ease-out ${
-            isClicking ? "w-3 h-3" : isPointer ? "w-4 h-4" : "w-2 h-2"
-          }`}
+          className={`rounded-full bg-white transition-all duration-150 ease-out ${isClicking ? "w-3 h-3" : isPointer ? "w-4 h-4" : "w-2 h-2"
+            }`}
         />
       </div>
 
@@ -94,12 +107,12 @@ const CustomCursor = () => {
         className="fixed pointer-events-none z-[9998] mix-blend-difference"
         style={{
           transition: "width 0.2s, height 0.2s, border-color 0.2s",
+          willChange: "transform",
         }}
       >
         <div
-          className={`rounded-full border-2 border-white/80 transition-all duration-200 ease-out ${
-            isClicking ? "w-8 h-8 border-primary" : isPointer ? "w-12 h-12 border-primary/60" : "w-8 h-8"
-          }`}
+          className={`rounded-full border-2 border-white/80 transition-all duration-200 ease-out ${isClicking ? "w-8 h-8 border-primary" : isPointer ? "w-12 h-12 border-primary/60" : "w-8 h-8"
+            }`}
         />
       </div>
     </>

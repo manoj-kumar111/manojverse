@@ -1,28 +1,36 @@
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useSpring, useTransform, useReducedMotion } from "framer-motion";
 import { useRef } from "react";
 
 const ParallaxBackground = () => {
   const ref = useRef(null);
+  const shouldReduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll();
 
-  // Different parallax speeds for each layer
-  const y1 = useTransform(scrollYProgress, [0, 1], [0, -300]);
-  const y2 = useTransform(scrollYProgress, [0, 1], [0, -500]);
-  const y3 = useTransform(scrollYProgress, [0, 1], [0, -200]);
-  const y4 = useTransform(scrollYProgress, [0, 1], [0, -400]);
-  const rotate1 = useTransform(scrollYProgress, [0, 1], [0, 45]);
-  const rotate2 = useTransform(scrollYProgress, [0, 1], [0, -30]);
-  const scale1 = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1.2, 0.8]);
-  const scale2 = useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 1, 1.3]);
-  const opacity1 = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0.3, 0.6, 0.4, 0.2]);
-  const opacity2 = useTransform(scrollYProgress, [0, 0.5, 1], [0.2, 0.5, 0.3]);
+  // Use spring for smoother, more performant animations
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
+
+  // Different parallax speeds for each layer - use smoothProgress for less jank
+  const y1 = useTransform(smoothProgress, [0, 1], [0, shouldReduceMotion ? 0 : -300]);
+  const y2 = useTransform(smoothProgress, [0, 1], [0, shouldReduceMotion ? 0 : -500]);
+  const y3 = useTransform(smoothProgress, [0, 1], [0, shouldReduceMotion ? 0 : -200]);
+  const y4 = useTransform(smoothProgress, [0, 1], [0, shouldReduceMotion ? 0 : -400]);
+  const rotate1 = useTransform(smoothProgress, [0, 1], [0, shouldReduceMotion ? 0 : 45]);
+  const rotate2 = useTransform(smoothProgress, [0, 1], [0, shouldReduceMotion ? 0 : -30]);
+  const scale1 = useTransform(smoothProgress, [0, 0.5, 1], [1, shouldReduceMotion ? 1 : 1.2, shouldReduceMotion ? 1 : 0.8]);
+  const scale2 = useTransform(smoothProgress, [0, 0.5, 1], [0.8, 1, shouldReduceMotion ? 1 : 1.3]);
+  const opacity1 = useTransform(smoothProgress, [0, 0.3, 0.7, 1], [0.3, 0.6, 0.4, 0.2]);
+  const opacity2 = useTransform(smoothProgress, [0, 0.5, 1], [0.2, 0.5, 0.3]);
 
   return (
     <div ref={ref} className="fixed inset-0 overflow-hidden pointer-events-none z-0">
       {/* Grid pattern with parallax */}
-      <motion.div 
+      <motion.div
         className="absolute inset-0 grid-pattern"
-        style={{ y: y3, opacity: 0.15 }}
+        style={{ y: y3, opacity: 0.15, willChange: "transform" }}
       />
 
       {/* Large gradient orbs with different parallax speeds */}
@@ -35,6 +43,7 @@ const ParallaxBackground = () => {
           y: y1,
           scale: scale1,
           opacity: opacity1,
+          willChange: "transform, opacity",
         }}
       />
 
@@ -48,6 +57,7 @@ const ParallaxBackground = () => {
           scale: scale2,
           rotate: rotate1,
           opacity: opacity2,
+          willChange: "transform, opacity",
         }}
       />
 
@@ -59,6 +69,7 @@ const ParallaxBackground = () => {
           left: "20%",
           y: y4,
           rotate: rotate2,
+          willChange: "transform",
         }}
       />
 
@@ -70,6 +81,7 @@ const ParallaxBackground = () => {
           right: "15%",
           y: y1,
           scale: scale2,
+          willChange: "transform",
         }}
       />
 
