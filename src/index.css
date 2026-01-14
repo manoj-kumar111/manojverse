@@ -6,7 +6,6 @@
 
 @layer base {
   :root {
-    /* Dark futuristic theme */
     --background: 222 47% 4%;
     --foreground: 210 40% 98%;
 
@@ -16,18 +15,15 @@
     --popover: 222 47% 6%;
     --popover-foreground: 210 40% 98%;
 
-    /* Cyan neon primary */
     --primary: 185 100% 50%;
     --primary-foreground: 222 47% 4%;
 
-    /* Deep purple secondary */
     --secondary: 265 89% 60%;
     --secondary-foreground: 210 40% 98%;
 
     --muted: 222 47% 14%;
     --muted-foreground: 215 20% 65%;
 
-    /* Accent - neon blue */
     --accent: 220 100% 60%;
     --accent-foreground: 210 40% 98%;
 
@@ -40,17 +36,14 @@
 
     --radius: 0.75rem;
 
-    /* Custom neon colors */
     --neon-cyan: 185 100% 50%;
     --neon-purple: 265 89% 60%;
     --neon-blue: 220 100% 60%;
     --neon-pink: 330 100% 60%;
 
-    /* Glassmorphism */
     --glass-bg: 222 47% 8%;
     --glass-border: 222 47% 25%;
 
-    /* Gradients */
     --gradient-primary: linear-gradient(135deg, hsl(185 100% 50%), hsl(265 89% 60%));
     --gradient-secondary: linear-gradient(135deg, hsl(265 89% 60%), hsl(330 100% 60%));
     --gradient-mesh: radial-gradient(at 40% 20%, hsl(185 100% 50% / 0.15) 0px, transparent 50%),
@@ -59,7 +52,6 @@
       radial-gradient(at 80% 50%, hsl(220 100% 60% / 0.1) 0px, transparent 50%),
       radial-gradient(at 0% 100%, hsl(185 100% 50% / 0.15) 0px, transparent 50%);
 
-    /* Shadows & Glows */
     --glow-cyan: 0 0 20px hsl(185 100% 50% / 0.5), 0 0 40px hsl(185 100% 50% / 0.3);
     --glow-purple: 0 0 20px hsl(265 89% 60% / 0.5), 0 0 40px hsl(265 89% 60% / 0.3);
     --glow-blue: 0 0 20px hsl(220 100% 60% / 0.5), 0 0 40px hsl(220 100% 60% / 0.3);
@@ -69,17 +61,13 @@
 @layer base {
   * {
     @apply border-border;
-    cursor: none;
   }
 
-  html {
-    /* Removed scroll-behavior: smooth to prevent conflicts with Framer Motion scroll tracking */
-  }
+  html {}
 
   body {
     @apply bg-background text-foreground antialiased;
     font-family: 'Inter', system-ui, sans-serif;
-    cursor: none;
   }
 
   h1,
@@ -99,10 +87,9 @@
 
   a,
   button {
-    cursor: none;
+    cursor: inherit;
   }
 
-  /* Performance: CSS containment for fixed elements */
   .fixed {
     contain: layout style;
   }
@@ -110,7 +97,6 @@
 
 @layer components {
 
-  /* Glassmorphism card */
   .glass-card {
     @apply relative overflow-hidden rounded-xl;
     background: hsl(var(--glass-bg) / 0.6);
@@ -130,7 +116,6 @@
     @apply opacity-20;
   }
 
-  /* Neon text */
   .text-neon-cyan {
     color: hsl(var(--neon-cyan));
     text-shadow: 0 0 10px hsl(var(--neon-cyan) / 0.5);
@@ -141,7 +126,6 @@
     text-shadow: 0 0 10px hsl(var(--neon-purple) / 0.5);
   }
 
-  /* Gradient text */
   .text-gradient {
     @apply bg-clip-text text-transparent;
     background-image: var(--gradient-primary);
@@ -152,7 +136,6 @@
     background-image: var(--gradient-secondary);
   }
 
-  /* Glow effects */
   .glow-cyan {
     box-shadow: var(--glow-cyan);
   }
@@ -165,7 +148,6 @@
     box-shadow: var(--glow-blue);
   }
 
-  /* Animated border gradient */
   .border-gradient {
     @apply relative;
   }
@@ -181,14 +163,12 @@
     @apply opacity-100;
   }
 
-  /* Noise texture overlay */
   .noise-overlay::after {
     content: '';
     @apply absolute inset-0 pointer-events-none opacity-[0.03];
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
   }
 
-  /* Grid pattern background */
   .grid-pattern {
     background-size: 60px 60px;
     background-image:
@@ -196,12 +176,10 @@
       linear-gradient(to bottom, hsl(var(--border) / 0.3) 1px, transparent 1px);
   }
 
-  /* Animated gradient background */
   .gradient-mesh {
     background: var(--gradient-mesh);
   }
 
-  /* Magnetic button effect */
   .magnetic-btn {
     @apply relative overflow-hidden transition-all duration-300;
   }
@@ -216,7 +194,6 @@
     @apply opacity-10;
   }
 
-  /* Terminal styling */
   .terminal {
     @apply glass-card p-4;
     font-family: 'JetBrains Mono', monospace;
@@ -230,7 +207,6 @@
     @apply w-3 h-3 rounded-full;
   }
 
-  /* Scrollbar styling */
   ::-webkit-scrollbar {
     width: 8px;
   }
@@ -247,7 +223,6 @@
     @apply bg-muted-foreground;
   }
 
-  /* Selection styling */
   ::selection {
     background: hsl(var(--primary) / 0.3);
   }
@@ -255,7 +230,6 @@
 
 @layer utilities {
 
-  /* Animation delays */
   .animation-delay-100 {
     animation-delay: 100ms;
   }
@@ -276,7 +250,6 @@
     animation-delay: 500ms;
   }
 
-  /* Perspective for 3D effects */
   .perspective-1000 {
     perspective: 1000px;
   }
@@ -289,7 +262,6 @@
     backface-visibility: hidden;
   }
 
-  /* Modern hover animations */
   .hover-lift {
     @apply transition-all duration-300 ease-out;
   }
@@ -323,7 +295,6 @@
     transform: rotate(5deg) scale(1.02);
   }
 
-  /* Text reveal animation */
   .text-reveal {
     @apply relative overflow-hidden;
   }
@@ -334,12 +305,10 @@
     animation: reveal 0.8s ease-out forwards;
   }
 
-  /* Magnetic effect */
   .magnetic {
     @apply transition-transform duration-200 ease-out;
   }
 
-  /* Shimmer effect */
   .shimmer {
     @apply relative overflow-hidden;
   }
@@ -354,7 +323,6 @@
     animation: shimmer 2s infinite;
   }
 
-  /* Pulse border */
   .pulse-border {
     @apply relative;
   }
@@ -367,24 +335,20 @@
     animation: pulse-glow 2s ease-in-out infinite;
   }
 
-  /* Floating animation */
   .float {
     animation: float 6s ease-in-out infinite;
   }
 
-  /* Tilt on hover */
   .tilt-hover {
     @apply transition-transform duration-300;
     transform-style: preserve-3d;
   }
 
-  /* Slide up on scroll */
   .slide-up {
     @apply opacity-0 translate-y-8;
     animation: slide-up 0.6s ease-out forwards;
   }
 
-  /* Stagger children */
   .stagger-children>* {
     @apply opacity-0 translate-y-4;
     animation: fade-in-up 0.5s ease-out forwards;
@@ -414,7 +378,6 @@
     animation-delay: 0.6s;
   }
 
-  /* Underline animation */
   .underline-animation {
     @apply relative;
   }
@@ -428,7 +391,6 @@
     @apply w-full;
   }
 
-  /* Border animation */
   .border-animation {
     @apply relative overflow-hidden;
   }

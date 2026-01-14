@@ -10,12 +10,12 @@ interface AnimatedCounterProps {
   className?: string;
 }
 
-const AnimatedCounter = ({ 
-  target, 
-  suffix = "", 
+const AnimatedCounter = ({
+  target,
+  suffix = "",
   prefix = "",
   duration = 2,
-  className 
+  className
 }: AnimatedCounterProps) => {
   const [count, setCount] = useState(0);
   const ref = useRef<HTMLSpanElement>(null);
@@ -30,11 +30,10 @@ const AnimatedCounter = ({
     const updateCount = () => {
       const now = Date.now();
       const progress = Math.min((now - startTime) / (duration * 1000), 1);
-      
-      // Easing function (ease out cubic)
+
       const easeOutCubic = 1 - Math.pow(1 - progress, 3);
       const currentCount = Math.floor(easeOutCubic * target);
-      
+
       setCount(currentCount);
 
       if (now < endTime) {

@@ -6,14 +6,12 @@ const ParallaxBackground = () => {
   const shouldReduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll();
 
-  // Use spring for smoother, more performant animations
   const smoothProgress = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
     restDelta: 0.001
   });
 
-  // Different parallax speeds for each layer - use smoothProgress for less jank
   const y1 = useTransform(smoothProgress, [0, 1], [0, shouldReduceMotion ? 0 : -300]);
   const y2 = useTransform(smoothProgress, [0, 1], [0, shouldReduceMotion ? 0 : -500]);
   const y3 = useTransform(smoothProgress, [0, 1], [0, shouldReduceMotion ? 0 : -200]);
