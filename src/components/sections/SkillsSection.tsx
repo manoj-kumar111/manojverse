@@ -20,7 +20,7 @@ const skillCategories = [
       { name: "CSS", level: 85 },
       { name: "React.js", level: 85 },
       { name: "Tailwind CSS", level: 80 },
-      { name: "TypeScript", level: 75 },
+      { name: "TypeScript", level: 80 },
     ],
   },
   {
@@ -38,7 +38,6 @@ const skillCategories = [
     skills: [
       { name: "MongoDB", level: 85 },
       { name: "MySQL", level: 80 },
-      { name: "Firebase", level: 70 },
     ],
   },
   {
@@ -48,16 +47,17 @@ const skillCategories = [
       { name: "GitHub", level: 90 },
       { name: "VS Code", level: 90 },
       { name: "Vercel", level: 80 },
+      { name: "Postman", level: 80 },
     ],
   },
   {
     title: "Core CS",
     skills: [
-      { name: "Data Structures", level: 90 },
-      { name: "Algorithms", level: 85 },
-      { name: "OOP", level: 85 },
-      { name: "DBMS", level: 80 },
-      { name: "OS", level: 75 },
+      { name: "Data Structures and Algorithms", level: 90 },
+      { name: "Object Oriented Programming", level: 85 },
+      { name: "Database Management System", level: 80 },
+      { name: "Operating System", level: 75 },
+      { name: "Computer Networks", level: 85 },
     ],
   },
 ];

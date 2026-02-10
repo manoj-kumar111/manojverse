@@ -8,7 +8,7 @@ const timelineData = [
     title: "B.E. in Computer Science & Engineering",
     organization: "Chandigarh University, India",
     date: "2022 - Present",
-    description: "CGPA: 7.27 | Specializing in software development and algorithms",
+    description: "CGPA: 7.30 | Specializing in software development and algorithms",
     icon: GraduationCap,
   },
   {
